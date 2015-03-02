@@ -4,7 +4,6 @@ object ch16 extends App{
  
   def msort[T](less: (T, T) => Boolean)
     (xs: List[T]): List[T] = {  
-  
     def merge(xs: List[T], ys: List[T]): List[T] = {
       (xs, ys) match {
         case (Nil, _) => ys
@@ -15,11 +14,12 @@ object ch16 extends App{
       }
     }
     
-    val n = xs.length
+    val n = xs.length / 2
     if(n == 0) xs
     else {
       val (ys, zs) = xs splitAt n
-      merge(msort(less)(ys), msort(less)(xs))
+      //println(ys.length + " : " + zs.length)
+      merge(msort(less)(ys), msort(less)(zs))
     }
   }
   val f = (a: Int, b: Int) => a < b
@@ -27,5 +27,6 @@ object ch16 extends App{
   val l = List(1,2,6,9,3,6,2,23,77,99,12,3,3555,90)
   
  println(msort(f)(List(2,1)))
+ println(msort(f)(l))
   
 }
